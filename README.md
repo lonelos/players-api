@@ -19,6 +19,6 @@ $ pip install -r requirements.txt
 
 Run application:
 ```bash
-$ export FLASK_APP=flask.py
+$ export FLASK_APP=app.py
 $ flask run
 ```
