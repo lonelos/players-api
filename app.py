@@ -45,12 +45,19 @@ def edit_player(id):
     data = request.get_json()
     player = Player.query.get_or_404(id)
 
-    player.first_name = data['first_name'],
-    player.last_name = data['last_name'],
-    player.date_of_birth = data['date_of_birth'],
-    player.nationality_id = data['nationality_id'],
-    player.current_club_id = data['current_club_id'],
-    player.preferred_position = data['preferred_position'],
+    if data.get('first_name'):
+        player.first_name = data['first_name'],
+    if data.get('last_name'):
+        player.last_name = data['last_name'],
+    if data.get('date_of_birth'):
+        player.date_of_birth = data['date_of_birth'],
+    if data.get('nationality_id'):
+        player.nationality_id = data['nationality_id'],
+    if data.get('current_club_id'):
+        player.current_club_id = data['current_club_id'],
+    if data.get('preferred_position'):
+        player.preferred_position = data['preferred_position'],
+
     player.last_modified = datetime.datetime.utcnow()
     db.session.add(player)
 
