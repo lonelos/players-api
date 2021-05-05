@@ -20,6 +20,20 @@ def get_players():
 def create_player():
     data = request.get_json()
 
+    required = [
+        'first_name', 'last_name', 'date_of_birth',
+        'nationality_id', 'current_club_id', 'preferred_position',
+    ]
+
+    errors = []
+
+    for field in required:
+        if not data.get(field):
+            errors.append([f'Field {field} is required'])
+
+    if errors:
+        return jsonify({'errors': errors}), 400
+
     player = Player(
         first_name=data['first_name'],
         last_name=data['last_name'],
@@ -31,7 +45,7 @@ def create_player():
     db.session.add(player)
 
     db.session.commit()
-    return jsonify(data), 201
+    return '', 201
 
 
 @app.route('/player/<id>', methods=['GET'])
